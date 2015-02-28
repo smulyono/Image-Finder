@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Image Finder</string>
+
+    <string name="action_share">Share</string>
+    <string name="search_prompt">Enter search query</string>
+    <string name="search_label">Search</string>
+    <string name="image_title">Image Title</string>
+    <string name="title_activity_image_display">Full Image</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>
