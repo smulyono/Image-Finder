@@ -6,6 +6,51 @@
     <string name="search_label">Search</string>
     <string name="image_title">Image Title</string>
     <string name="title_activity_image_display">Full Image</string>
+    
+    <!-- Filter dialog -->
+    <string name="filter_title">Advanced search options</string>
+    <string name="image_size_label">Image Size</string>
+    <string name="color_filter_label">Color Filter</string>
+    <string name="image_type_label">Image Type</string>
+    <string name="site_filter_label">Site Filter</string>
+    
+    <string-array name="image_size_array">
+        <item>any</item>
+        <item>icon</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>xlarge</item>
+        <item>xxlarge</item>
+        <item>huge</item>
+    </string-array>
 
-    <string name="hello_world">Hello world!</string>
+    <string-array name="color_filter_array">
+        <item>any</item>
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>red</item>
+        <item>teal</item>
+        <item>white</item>
+        <item>yellow</item>
+    </string-array>
+
+    <string-array name="image_type_array">
+        <item>any</item>
+        <item>face</item>
+        <item>photo</item>
+        <item>clipart</item>
+        <item>lineart</item>
+    </string-array>
+
+
+    <string name="save_label">Save</string>
+    <string name="cancel_label">Cancel</string>
+    
 </resources>

@@ -28,11 +28,13 @@ import java.util.ArrayList;
 
 import courses.smulyono.me.imagefinder.R;
 import courses.smulyono.me.imagefinder.adapters.ImageResultsAdapter;
+import courses.smulyono.me.imagefinder.dialogs.SetFilterDialog;
+import courses.smulyono.me.imagefinder.models.ImageFilter;
 import courses.smulyono.me.imagefinder.models.ImageResult;
 
 
-public class SearchActivity extends ActionBarActivity {
-    private final String APP_TAG = "[IMAGE_FINDER]";
+public class SearchActivity extends ActionBarActivity  {
+    public static final String APP_TAG = "[IMAGE_FINDER]";
     private final String GOOGLE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images";
     
     private Button btnSearch;
@@ -41,6 +43,8 @@ public class SearchActivity extends ActionBarActivity {
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
     private SearchView mSearchView;
+    
+    public ImageFilter imageFilter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +80,20 @@ public class SearchActivity extends ActionBarActivity {
         
         aImageResults = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(aImageResults);
+        
+        // prepare the standards filter;
+        imageFilter = new ImageFilter();
+        imageFilter.imageSizeOptions = getResources().getStringArray(R.array.image_size_array);
+        imageFilter.imageTypeOptions = getResources().getStringArray(R.array.image_type_array);
+        imageFilter.colorFilterOptions= getResources().getStringArray(R.array.color_filter_array);
     }
 
     // button search click
     private void onImageSearch(String queryText){
         Toast.makeText(this, queryText, Toast.LENGTH_SHORT).show();
 
-        RequestParams params = new RequestParams();
-        params.put("q", queryText);
-        params.put("v", "1.0");
-        params.put("rsz", 8);
-        // image size
-//        params.put("imgsz", "small");
-        
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(GOOGLE_SEARCH_URL, params, new JsonHttpResponseHandler(){
+        client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d(APP_TAG, response.toString());
@@ -139,9 +142,33 @@ public class SearchActivity extends ActionBarActivity {
         
         switch (id){
             case R.id.action_filter : 
+                // shows up dialog
+                SetFilterDialog filterDialog = SetFilterDialog.newInstance();
+                filterDialog.show(getFragmentManager(),"filter_dialog");
                 return true;
         }
         
         return super.onOptionsItemSelected(item);
+    }
+    
+    private RequestParams getConstructedRequestParams(String queryText){
+        RequestParams params = new RequestParams();
+        params.put("q", queryText);
+        params.put("v", "1.0");
+        params.put("rsz", 8);
+        // process the filter
+        if (!imageFilter.getImageSize().equalsIgnoreCase("any")) {
+            params.put("imgsz", imageFilter.getImageSize());
+        }
+        if (!imageFilter.getColorFilter().equalsIgnoreCase("any")) {
+            params.put("imgcolor", imageFilter.getColorFilter());
+        }
+        if (!imageFilter.getImageType().equalsIgnoreCase("any")) {
+            params.put("imgtype", imageFilter.getImageType());
+        }
+        if (!imageFilter.siteFilter.isEmpty()) {
+            params.put("as_sitesearch", imageFilter.siteFilter);
+        }
+        return params;
     }
 }

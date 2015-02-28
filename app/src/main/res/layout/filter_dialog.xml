@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_size_label"
+        android:id="@+id/tvLabelImageSize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginRight="6dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color_filter_label"
+        android:id="@+id/tvColorFilterLabel"
+        android:layout_below="@+id/tvLabelImageSize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginRight="6dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_type_label"
+        android:id="@+id/tvImageTypeLabel"
+        android:layout_below="@+id/tvColorFilterLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:padding="10dp"
+        
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/site_filter_label"
+        android:id="@+id/tvSiteFilterLabel"
+        android:layout_below="@+id/tvImageTypeLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spImageSize"
+        android:layout_toRightOf="@+id/tvLabelImageSize"
+        android:layout_toEndOf="@+id/tvLabelImageSize"
+        android:layout_alignBottom="@+id/tvLabelImageSize"
+        android:textAlignment="gravity"
+        android:spinnerMode="dropdown"
+        />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spColorFilter"
+        android:layout_alignTop="@+id/tvColorFilterLabel"
+        android:layout_toRightOf="@+id/tvColorFilterLabel"
+        android:layout_alignBottom="@id/tvColorFilterLabel"
+        android:textAlignment="gravity"
+        android:spinnerMode="dropdown"
+        />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spImageType"
+        android:layout_alignTop="@+id/tvImageTypeLabel"
+        android:layout_toRightOf="@+id/tvImageTypeLabel"
+        android:layout_alignBottom="@id/tvImageTypeLabel"
+        android:textAlignment="gravity"
+        android:spinnerMode="dropdown"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSiteFilter"
+        android:layout_below="@+id/tvImageTypeLabel"
+        android:layout_toRightOf="@+id/tvSiteFilterLabel"
+
+        />
+
+</RelativeLayout>
