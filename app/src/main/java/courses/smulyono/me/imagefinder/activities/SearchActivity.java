@@ -2,7 +2,9 @@ package courses.smulyono.me.imagefinder.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +40,7 @@ public class SearchActivity extends ActionBarActivity {
     private GridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
+    private SearchView mSearchView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +51,12 @@ public class SearchActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_isearch);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        
+
         // register the elements
         setupViews();
     }
     
     private void setupViews(){
-        etQuery = (EditText) findViewById(R.id.etQuery);
 
         gvResults = (GridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,14 +72,6 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
         
-        btnSearch = (Button) findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onImageSearch(v);
-            }
-        });
-
         imageResults = new ArrayList<ImageResult>();
         
         aImageResults = new ImageResultsAdapter(this, imageResults);
@@ -85,8 +79,7 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     // button search click
-    private void onImageSearch(View v){
-        String queryText = etQuery.getText().toString();
+    private void onImageSearch(String queryText){
         Toast.makeText(this, queryText, Toast.LENGTH_SHORT).show();
 
         RequestParams params = new RequestParams();
@@ -114,11 +107,26 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                onImageSearch(s);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -128,7 +136,12 @@ public class SearchActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        
+        switch (id){
+            case R.id.action_filter : 
+                return true;
+        }
+        
         return super.onOptionsItemSelected(item);
     }
 }

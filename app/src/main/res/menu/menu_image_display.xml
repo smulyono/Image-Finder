@@ -4,6 +4,8 @@
     tools:context="courses.smulyono.me.imagefinder.activities.ImageDisplayActivity">
     <item android:id="@+id/action_settings" 
         android:title="@string/action_share"
-        android:orderInCategory="100" 
-        app:showAsAction="never" />
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        />
 </menu>
