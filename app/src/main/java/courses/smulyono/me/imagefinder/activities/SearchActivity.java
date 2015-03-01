@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +28,7 @@ import java.util.ArrayList;
 import courses.smulyono.me.imagefinder.R;
 import courses.smulyono.me.imagefinder.adapters.ImageResultsAdapter;
 import courses.smulyono.me.imagefinder.dialogs.SetFilterDialog;
+import courses.smulyono.me.imagefinder.listeners.EndlessScrollListener;
 import courses.smulyono.me.imagefinder.models.ImageFilter;
 import courses.smulyono.me.imagefinder.models.ImageResult;
 
@@ -75,33 +75,42 @@ public class SearchActivity extends ActionBarActivity  {
                 startActivity(i);
             }
         });
-        
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                Log.d(SearchActivity.APP_TAG, "Load more " + page + " out of " + totalItemsCount);
+                // continue the query text
+                onImageSearch(imageFilter.searchQuery, imageFilter.getStartPage(page));
+            }
+        });
+
         imageResults = new ArrayList<ImageResult>();
         
         aImageResults = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(aImageResults);
         
         // prepare the standards filter;
-        imageFilter = new ImageFilter();
-        imageFilter.imageSizeOptions = getResources().getStringArray(R.array.image_size_array);
-        imageFilter.imageTypeOptions = getResources().getStringArray(R.array.image_type_array);
-        imageFilter.colorFilterOptions= getResources().getStringArray(R.array.color_filter_array);
+        imageFilter = new ImageFilter(this);
     }
 
-    // button search click
     private void onImageSearch(String queryText){
-        Toast.makeText(this, queryText, Toast.LENGTH_SHORT).show();
-
+        aImageResults.clear();
+        onImageSearch(queryText, 0);
+    }
+    
+    // button search click
+    private void onImageSearch(String queryText, int offsetPage){
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText), new JsonHttpResponseHandler(){
+        
+        final int currentOffsetPage = offsetPage;
+        
+        client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText, offsetPage), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d(APP_TAG, response.toString());
                 // clear out the older arraylist
                 try {
                     JSONArray imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
-                    // only run this during initial search
-                    aImageResults.clear();
                     aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,6 +118,8 @@ public class SearchActivity extends ActionBarActivity  {
                 Log.d(APP_TAG, imageResults.size() + "" );
             }
         });
+        
+        imageFilter.searchQuery = queryText;
     }
 
     @Override
@@ -151,11 +162,11 @@ public class SearchActivity extends ActionBarActivity  {
         return super.onOptionsItemSelected(item);
     }
     
-    private RequestParams getConstructedRequestParams(String queryText){
+    private RequestParams getConstructedRequestParams(String queryText, int offsetPage){
         RequestParams params = new RequestParams();
         params.put("q", queryText);
         params.put("v", "1.0");
-        params.put("rsz", 8);
+        params.put("rsz", imageFilter.pageSize);
         // process the filter
         if (!imageFilter.getImageSize().equalsIgnoreCase("any")) {
             params.put("imgsz", imageFilter.getImageSize());
@@ -168,6 +179,9 @@ public class SearchActivity extends ActionBarActivity  {
         }
         if (!imageFilter.siteFilter.isEmpty()) {
             params.put("as_sitesearch", imageFilter.siteFilter);
+        }
+        if (offsetPage > 0){
+            params.put("start", offsetPage);
         }
         return params;
     }

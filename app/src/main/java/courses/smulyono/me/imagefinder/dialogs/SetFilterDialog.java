@@ -51,19 +51,19 @@ public class SetFilterDialog extends DialogFragment {
     
         // image size
         spImageSize = (Spinner) view.findViewById(R.id.spImageSize);
-        ArrayAdapter<CharSequence> imageSizeadapter = ArrayAdapter.createFromResource(getActivity(), R.array.image_size_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> imageSizeadapter = ArrayAdapter.createFromResource(getActivity(), parentActivity.imageFilter.imageSizeArray, android.R.layout.simple_spinner_dropdown_item);
         spImageSize.setAdapter(imageSizeadapter);
         spImageSize.setSelection(parentActivity.imageFilter.imageSize);
         
         // color filter
         spColorFilter = (Spinner) view.findViewById(R.id.spColorFilter);
-        ArrayAdapter<CharSequence> colorFilterAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.color_filter_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> colorFilterAdapter = ArrayAdapter.createFromResource(getActivity(), parentActivity.imageFilter.colorFilterArray, android.R.layout.simple_spinner_dropdown_item);
         spColorFilter.setAdapter(colorFilterAdapter);
         spColorFilter.setSelection(parentActivity.imageFilter.colorFilter);
         
         // image type
         spImageType = (Spinner) view.findViewById(R.id.spImageType);
-        ArrayAdapter<CharSequence> imageTypeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.image_type_array, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> imageTypeAdapter = ArrayAdapter.createFromResource(getActivity(), parentActivity.imageFilter.imageTypeArray, android.R.layout.simple_spinner_dropdown_item);
         spImageType.setAdapter(imageTypeAdapter);
         spImageType.setSelection(parentActivity.imageFilter.imageType);
         

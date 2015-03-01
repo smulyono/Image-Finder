@@ -14,6 +14,10 @@ public class ImageResult implements Serializable {
     public String thumbUrl;
     public String fullUrl;
     public String title;
+    public int width;
+    public int height;
+    public int tbWidth;
+    public int tbHeight;
     
     // new ImageResult(.. raw item json)
     public ImageResult(JSONObject json){
@@ -21,6 +25,10 @@ public class ImageResult implements Serializable {
             this.fullUrl = json.getString("url");
             this.thumbUrl = json.getString("tbUrl");
             this.title = json.getString("title");
+            this.width = json.getInt("width");
+            this.height = json.getInt("height");
+            this.tbHeight = json.getInt("tbHeight");
+            this.tbWidth = json.getInt("tbWidth");
         } catch (JSONException e) {
             e.printStackTrace();
         }

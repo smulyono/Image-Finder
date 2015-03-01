@@ -53,9 +53,22 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
         
         // load remote image
         viewHolder.ivImage.setImageResource(0);
+        
+        // check on the ratio of tbWidth / tbHeight
+        long ratio = imageInfo.tbWidth/imageInfo.tbHeight;
+        
+        int currentWidth = 100;
+        int currentHeight = 0;
+        try {
+            currentHeight = Math.round(currentWidth / ratio);
+            if (currentHeight > 100){
+                currentHeight = 0;
+            }
+        } catch (ArithmeticException e){}
+
         Picasso.with(getContext()).load(imageInfo.thumbUrl)
                 .placeholder(R.mipmap.ic_isearch)
-                .resize(75, 75)
+                .resize(currentWidth, currentHeight)
                 .into(viewHolder.ivImage);
         
         return convertView;
