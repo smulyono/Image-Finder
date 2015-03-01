@@ -4,11 +4,26 @@
     android:background="#48717171"
     tools:context="courses.smulyono.me.imagefinder.activities.ImageDisplayActivity">
 
-    <courses.smulyono.me.imagefinder.widgets.TouchImageView
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvTitle"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:linksClickable="true"
+        android:textColor="#ff161613"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textStyle="italic"
+        android:gravity="center"
+        />
+
+    <courses.smulyono.me.imagefinder.widgets.TouchImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/ivImageResult"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:maxWidth="600dp"
@@ -18,18 +33,4 @@
         android:layout_alignParentEnd="true" 
         />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvTitle"
-        android:layout_below="@+id/ivImageResult"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp" 
-        android:textSize="18dp"
-        android:linksClickable="true"
-        android:textColor="#ff161613"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        />
 </RelativeLayout>

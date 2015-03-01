@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="imagefindertheme" parent="@style/_imagefindertheme"/>
+
+  <style name="_imagefindertheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <item name="android:editTextBackground">@drawable/imagefindertheme_edit_text_holo_light</item>
+
+    <item name="android:buttonStyle">@style/Buttonimagefindertheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonimagefindertheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/Spinnerimagefindertheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarimagefindertheme</item>
+
+  </style>
+
+</resources>
