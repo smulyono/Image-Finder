@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,11 +22,13 @@ import java.io.IOException;
 
 import courses.smulyono.me.imagefinder.R;
 import courses.smulyono.me.imagefinder.models.ImageResult;
+import courses.smulyono.me.imagefinder.widgets.TouchImageView;
 
 
 public class ImageDisplayActivity extends ActionBarActivity {
     
-    private ImageView ivImage;
+    private TouchImageView ivImage;
+    private TextView tvTitle;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,14 @@ public class ImageDisplayActivity extends ActionBarActivity {
     }
 
     private void setupViews(){
-        ivImage = (ImageView) findViewById(R.id.ivImageResult);
-
+        ivImage = (TouchImageView) findViewById(R.id.ivImageResult);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        
         // Retrieve data from parent activity
         ImageResult imgResult = (ImageResult) getIntent().getSerializableExtra("imgResult");
+        
+        tvTitle.setText(Html.fromHtml(imgResult.title));
+        
         // show the image
         Picasso.with(getApplicationContext()).load(imgResult.fullUrl)
                 .placeholder(R.mipmap.ic_isearch)
@@ -81,10 +89,6 @@ public class ImageDisplayActivity extends ActionBarActivity {
             } else {
                 // TODO..error handler
             }
-            return true;
-        }
-        if (id == android.R.id.home){
-            onBackPressed();
             return true;
         }
 

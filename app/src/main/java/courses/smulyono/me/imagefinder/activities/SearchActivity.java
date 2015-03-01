@@ -35,7 +35,7 @@ import courses.smulyono.me.imagefinder.models.ImageResult;
 import courses.smulyono.me.imagefinder.util.NetworkUtil;
 
 
-public class SearchActivity extends ActionBarActivity  {
+public class SearchActivity extends ActionBarActivity {
     public static final String APP_TAG = "[IMAGE_FINDER]";
     private final String GOOGLE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images";
     
@@ -45,7 +45,7 @@ public class SearchActivity extends ActionBarActivity  {
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
     private SearchView mSearchView;
-    
+
     public ImageFilter imageFilter;
     
     @Override
@@ -77,6 +77,7 @@ public class SearchActivity extends ActionBarActivity  {
                 startActivity(i);
             }
         });
+
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
@@ -116,7 +117,7 @@ public class SearchActivity extends ActionBarActivity  {
         client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText, offsetPage), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d(APP_TAG, response.toString());
+                Log.d(APP_TAG, "Offset page : " + currentOffsetPage);
                 // clear out the older arraylist
                 try {
                     JSONArray imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
@@ -124,7 +125,6 @@ public class SearchActivity extends ActionBarActivity  {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d(APP_TAG, imageResults.size() + "" );
             }
         });
         
@@ -190,6 +190,7 @@ public class SearchActivity extends ActionBarActivity  {
             params.put("as_sitesearch", imageFilter.siteFilter);
         }
         if (offsetPage > 0){
+            Log.d(APP_TAG, "offset : " + offsetPage);
             params.put("start", offsetPage);
         }
         return params;
