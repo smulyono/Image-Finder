@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -31,6 +32,7 @@ import courses.smulyono.me.imagefinder.dialogs.SetFilterDialog;
 import courses.smulyono.me.imagefinder.listeners.EndlessScrollListener;
 import courses.smulyono.me.imagefinder.models.ImageFilter;
 import courses.smulyono.me.imagefinder.models.ImageResult;
+import courses.smulyono.me.imagefinder.util.NetworkUtil;
 
 
 public class SearchActivity extends ActionBarActivity  {
@@ -100,6 +102,13 @@ public class SearchActivity extends ActionBarActivity  {
     
     // button search click
     private void onImageSearch(String queryText, int offsetPage){
+        // check on network
+        if (!NetworkUtil.isNetworkAvailable(this)){
+            Toast.makeText(getApplicationContext(), R.string.network_error, Toast.LENGTH_LONG).show();
+            return;
+        }
+        
+        
         AsyncHttpClient client = new AsyncHttpClient();
         
         final int currentOffsetPage = offsetPage;
