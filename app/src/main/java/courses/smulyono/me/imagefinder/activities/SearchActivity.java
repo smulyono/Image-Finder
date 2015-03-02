@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -41,6 +42,7 @@ public class SearchActivity extends ActionBarActivity {
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
     private SearchView mSearchView;
+    private ProgressBar netProgress;
 
     public ImageFilter imageFilter;
     
@@ -89,6 +91,8 @@ public class SearchActivity extends ActionBarActivity {
         
         // prepare the standards filter;
         imageFilter = new ImageFilter(this);
+        
+        netProgress = (ProgressBar) findViewById(R.id.progressNet);
     }
 
     private void onImageSearch(String queryText){
@@ -107,8 +111,8 @@ public class SearchActivity extends ActionBarActivity {
         
         AsyncHttpClient client = new AsyncHttpClient();
         
+        netProgress.setVisibility(View.VISIBLE);
         final int currentOffsetPage = offsetPage;
-        
         client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText, offsetPage), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -122,6 +126,7 @@ public class SearchActivity extends ActionBarActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                netProgress.setVisibility(View.GONE);
             }
         });
         
@@ -162,6 +167,9 @@ public class SearchActivity extends ActionBarActivity {
                 // shows up dialog
                 SetFilterDialog filterDialog = SetFilterDialog.newInstance();
                 filterDialog.show(getFragmentManager(),"filter_dialog");
+                break;
+            case R.id.action_clear_results:
+                aImageResults.clear();
                 break;
         }
 

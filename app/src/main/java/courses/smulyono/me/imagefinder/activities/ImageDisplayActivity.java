@@ -39,7 +39,7 @@ public class ImageDisplayActivity extends ActionBarActivity {
         // Displaying action bar icon again
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_isearch);
+        getSupportActionBar().setLogo(R.mipmap.ic_search);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         
         setupViews();
@@ -58,7 +58,7 @@ public class ImageDisplayActivity extends ActionBarActivity {
         int currentWidth = DeviceDimensionsHelper.getDisplayWidth(ivImage.getContext());
         // show the image
         Picasso.with(getApplicationContext()).load(imgResult.fullUrl)
-                .placeholder(R.mipmap.ic_isearch)
+                .placeholder(R.drawable.ic_action_name)
                 .resize(currentWidth, 0)
                 .into(ivImage);
     }

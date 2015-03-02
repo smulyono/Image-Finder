@@ -50,7 +50,7 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
         // check on the ratio of tbWidth / tbHeight
 
         Picasso.with(getContext()).load(imageInfo.thumbUrl)
-                .placeholder(R.mipmap.ic_isearch)
+                .placeholder(R.drawable.ic_action_name)
                 .resize(currentWidth, 0)
                 .into(viewHolder.ivImage);
         

@@ -14,4 +14,10 @@
         android:icon="@drawable/ic_cog"
         app:showAsAction="ifRoom"
     />
+
+    <item android:id="@+id/action_clear_results"
+        android:title="Clear result"
+        app:showAsAction="collapseActionView"
+        />
+
 </menu>
