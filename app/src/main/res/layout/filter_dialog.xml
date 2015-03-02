@@ -11,7 +11,7 @@
         android:id="@+id/tvLabelImageSize"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:textSize="@dimen/textLabel"
         android:padding="10dp"
         android:layout_marginRight="6dp"
         />
@@ -24,7 +24,7 @@
         android:layout_below="@+id/tvLabelImageSize"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:textSize="@dimen/textLabel"
         android:padding="10dp"
         android:layout_marginRight="6dp"
         />
@@ -37,7 +37,7 @@
         android:layout_below="@+id/tvColorFilterLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:textSize="@dimen/textLabel"
         android:padding="10dp"
         
         />
@@ -50,7 +50,7 @@
         android:layout_below="@+id/tvImageTypeLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:textSize="@dimen/textLabel"
         android:padding="10dp"
         android:layout_marginRight="20dp"
         />
@@ -63,7 +63,6 @@
         android:layout_toEndOf="@+id/tvLabelImageSize"
         android:layout_alignBottom="@+id/tvLabelImageSize"
         android:textAlignment="gravity"
-        android:spinnerMode="dropdown"
         />
 
     <Spinner
@@ -74,7 +73,6 @@
         android:layout_toRightOf="@+id/tvColorFilterLabel"
         android:layout_alignBottom="@id/tvColorFilterLabel"
         android:textAlignment="gravity"
-        android:spinnerMode="dropdown"
         />
 
     <Spinner
@@ -85,7 +83,6 @@
         android:layout_toRightOf="@+id/tvImageTypeLabel"
         android:layout_alignBottom="@id/tvImageTypeLabel"
         android:textAlignment="gravity"
-        android:spinnerMode="dropdown"
         />
 
     <EditText
@@ -94,7 +91,6 @@
         android:id="@+id/etSiteFilter"
         android:layout_below="@+id/tvImageTypeLabel"
         android:layout_toRightOf="@+id/tvSiteFilterLabel"
-
         />
 
 </RelativeLayout>

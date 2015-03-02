@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import courses.smulyono.me.imagefinder.R;
 import courses.smulyono.me.imagefinder.models.ImageResult;
+import courses.smulyono.me.imagefinder.util.DeviceDimensionsHelper;
 import courses.smulyono.me.imagefinder.widgets.TouchImageView;
 
 
@@ -50,13 +51,15 @@ public class ImageDisplayActivity extends ActionBarActivity {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         
         // Retrieve data from parent activity
-        ImageResult imgResult = (ImageResult) getIntent().getSerializableExtra("imgResult");
+        ImageResult imgResult = getIntent().getParcelableExtra("imgResult");
         
         tvTitle.setText(Html.fromHtml(imgResult.title));
         
+        int currentWidth = DeviceDimensionsHelper.getDisplayWidth(ivImage.getContext());
         // show the image
         Picasso.with(getApplicationContext()).load(imgResult.fullUrl)
                 .placeholder(R.mipmap.ic_isearch)
+                .resize(currentWidth, 0)
                 .into(ivImage);
     }
     

@@ -48,7 +48,8 @@ public class SetFilterDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.filter_dialog, null);
-    
+        View titleView = inflater.inflate(R.layout.filter_title_dialog, null);
+        
         // image size
         spImageSize = (Spinner) view.findViewById(R.id.spImageSize);
         ArrayAdapter<CharSequence> imageSizeadapter = ArrayAdapter.createFromResource(getActivity(), parentActivity.imageFilter.imageSizeArray, android.R.layout.simple_spinner_dropdown_item);
@@ -72,7 +73,8 @@ public class SetFilterDialog extends DialogFragment {
         etSiteFilter.setText(parentActivity.imageFilter.siteFilter);
         
         builder.setView(view)
-            .setTitle(R.string.filter_title)
+//            .setTitle(R.string.filter_title)
+            .setCustomTitle(titleView)
             .setPositiveButton(R.string.save_label, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

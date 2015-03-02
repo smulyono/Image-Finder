@@ -1,8 +1,28 @@
 <resources>
-
+    
+    <color name="title_color">#94eeeeee</color>
+    <color name="black_text">#ff161613</color>
+    <color name="navbar_color">#770c2641</color>
+    
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Action bar -->
+        <item name="android:actionBarStyle">@style/finderActionBar</item>
+        <item name="actionBarStyle">@style/finderActionBar</item>
+        
     </style>
-
+    
+    <style name="finderActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/navbar_color</item>
+        <item name="background">@color/navbar_color</item>
+        
+        <item name="android:titleTextStyle">@style/finderActionBar.titleTextStyle</item>
+        <item name="titleTextStyle">@style/finderActionBar.titleTextStyle</item>
+    </style>
+    
+    <style name="finderActionBar.titleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
 </resources>

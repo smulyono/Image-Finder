@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -39,8 +37,6 @@ public class SearchActivity extends ActionBarActivity {
     public static final String APP_TAG = "[IMAGE_FINDER]";
     private final String GOOGLE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/images";
     
-    private Button btnSearch;
-    private EditText etQuery;
     private GridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
@@ -55,9 +51,8 @@ public class SearchActivity extends ActionBarActivity {
         
         // Displaying action bar icon again
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_isearch);
+        getSupportActionBar().setLogo(R.mipmap.ic_search);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         // register the elements
         setupViews();
     }
@@ -81,8 +76,8 @@ public class SearchActivity extends ActionBarActivity {
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                Log.d(SearchActivity.APP_TAG, "Load more " + page + " out of " + totalItemsCount);
                 // continue the query text
+                Log.d(APP_TAG, "Call on scroll listener " + page);
                 onImageSearch(imageFilter.searchQuery, imageFilter.getStartPage(page));
             }
         });
@@ -117,10 +112,12 @@ public class SearchActivity extends ActionBarActivity {
         client.get(GOOGLE_SEARCH_URL, getConstructedRequestParams(queryText, offsetPage), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d(APP_TAG, "Offset page : " + currentOffsetPage);
                 // clear out the older arraylist
                 try {
                     JSONArray imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
+                    if (currentOffsetPage == 0){
+                        aImageResults.clear();
+                    }
                     aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -165,10 +162,10 @@ public class SearchActivity extends ActionBarActivity {
                 // shows up dialog
                 SetFilterDialog filterDialog = SetFilterDialog.newInstance();
                 filterDialog.show(getFragmentManager(),"filter_dialog");
-                return true;
+                break;
         }
-        
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
     
     private RequestParams getConstructedRequestParams(String queryText, int offsetPage){
@@ -189,7 +186,7 @@ public class SearchActivity extends ActionBarActivity {
         if (!imageFilter.siteFilter.isEmpty()) {
             params.put("as_sitesearch", imageFilter.siteFilter);
         }
-        if (offsetPage > 0){
+        if (offsetPage >= 0){
             Log.d(APP_TAG, "offset : " + offsetPage);
             params.put("start", offsetPage);
         }

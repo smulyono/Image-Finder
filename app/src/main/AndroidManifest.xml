@@ -7,9 +7,9 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_isearch"
+        android:icon="@mipmap/ic_search"
         android:label="@string/app_name"
-        android:theme="@style/imagefindertheme" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.SearchActivity"
             android:label="@string/app_name" 
